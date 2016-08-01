@@ -30,5 +30,5 @@ When thread locks one segment for updation it does not block it for retrieval (d
 method) hence some other thread can read the segment (by get method), but it will be able to read
 the data before locking.
 <br>
-#Segments in ConcurrentHashMap with diagramin java
+#Segments in ConcurrentHashMap with diagram in java
 ![alt tag](https://github.com/sendkumaranil/ConcurrentHashMap/blob/master/ConcurrentHashMap.png)
