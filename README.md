@@ -49,7 +49,19 @@ before locking (hence <b>map.get(33) will return 15</b>)
 <br><br>
 <b>ConcurrentHashMap Question 3 : What will happen map.put(25,12) is called and some other</b><br>
 <b>thread concurrently calls map.put(33,24)?</b><br>
-<b>Answer :</b> When <b>map.put(25,12)</b> is called <b>segment 2</b> will be locked,<br>
+<b>Answer :</b> When <b>map.put(25,12)</b> is called <b>segment 2</b> will be locked,
 <b>key=33 also lies in segment 2</b>, When thread locks one segment for updation it does not allow any
 other thread to perform updations in same segment until lock is not released on segment.
 hence <b>map.put(33,24)</b> will have to wait for <b>map.put(25,12)</b> operation to release lock on segment
+<br><br>
+<b>ConcurrentHashMap Question 4 : What will happen map.put(25,12) is called and some other</b><br>
+<b>thread concurrently calls map.put(30,29)?</b><br>
+<b>Answer :</b> When <b>map.put(25,12)</b> is called <b>segment 2</b> will be locked,
+but <b>key=30 lies in segment 3.</b>
+Both the kays lies in different segments, hence both operations can be performed concurrently.
+<br><br>
+
+<b>ConcurrentHashMap Question 5 : What will happen updations (put/remove) are in process in</b><br>
+<b>certain segments and new keypair have to be put/remove in same segment ?</b><br>
+<b>Answer :</b> When updations are in process thread locks the segment and it does not allow any other
+thread to perform updations (put/remove) in same segment until lock is not released on segment.
