@@ -35,18 +35,18 @@ the data before locking.
 <br>
 <b>ConcurrentHashMap Question 1 : What will happen map.put(25,12) is called and some other</b><br>
 <b>thread concurrently calls map.get(25)?</b><br>
-Answer : When map.put(25,12) is called segment 2 will be locked,
+<b>Answer :</b> When map.put(25,12) is called segment 2 will be locked,
 key=25 also lies in segment 2, When thread locks one segment for updation it does not block it for
 retrieval hence some other thread can read the same segment, but it will be able to read the data
 before locking (hence map.get(25) will return 121)
 <br><br>
 <b>ConcurrentHashMap Question 2 : What will happen map.put(25,12) is called and some other</b><br>
 <b>thread concurrently calls map.get(33)?</b><br>
-Answer : When map.put(25,12) is called segment 2 will be locked,
+<b>Answer :</b> When map.put(25,12) is called segment 2 will be locked,
 key=33 also lies in segment 2, When thread locks one segment for updation it does not block it for
 retrieval hence some other thread can read the same segment, but it will be able to read the data
 before locking (hence map.get(33) will return 15)
 <br><br>
 <b>ConcurrentHashMap Question 3 : What will happen map.put(25,12) is called and some other</b><br>
 <b>thread concurrently calls map.put(33,24)?</b><br>
-Answer : When map.put(25,12) is called segment 2 will be locked,
+<b>Answer :</b> When map.put(25,12) is called segment 2 will be locked,
