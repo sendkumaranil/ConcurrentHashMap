@@ -8,7 +8,7 @@ How does concurrent hash map works internally?
 <li>ConcurrentHashMap is synchronized in java.</li>
 
 
-Hierarchy of ConcurrentHashMap in java
+Hierarchy of ConcurrentHashMap in java:<br>
             java.lang.Object <br>
             +java.util.AbstractMap <br>
             +java.util.concurrent.ConcurrentHashMap
