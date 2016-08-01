@@ -20,6 +20,6 @@ Defining ConcurrentHashMap<Integer,String> means key can of Integer type and val
 String type only, using any other type will cause compilation error.
 <br><br>
 Concurrency level tells how many threads can access ConcurrentHashMap concurrently, 
-default concurrency level of ConcurrentHashMap is 16.<br>
+<b>default concurrency level of ConcurrentHashMap is 16 .</b><br>
   <b>new ConcurrentHashMap()</b>
 <br>Creates a new ConcurrentHashMap with concurrency level of 16.
