@@ -9,6 +9,6 @@ How does concurrent hash map works internally?
 
 
 Hierarchy of ConcurrentHashMap in java:<br>
-             java.lang.Object <br>
+                java.lang.Object <br>
             +java.util.AbstractMap <br>
             +java.util.concurrent.ConcurrentHashMap
