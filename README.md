@@ -22,3 +22,6 @@ String type only, using any other type will cause compilation error.
 Concurrency level tells how many threads can access ConcurrentHashMap concurrently, 
 <b>default concurrency level of ConcurrentHashMap is 16 .</b><br>
   <b>new ConcurrentHashMap()</b> -> Creates a new ConcurrentHashMap with concurrency level of 16.
+<br>
+ConcurrentHashMap is divided into different <b>segments</b> based on concurrency level. So different
+threads can access different <b>segments</b> concurrently in java.
