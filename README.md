@@ -31,3 +31,4 @@ method) hence some other thread can read the segment (by get method), but it wil
 the data before locking.
 <br>
 #Segments in ConcurrentHashMap with diagramin java
+![alt tag](https://github.com/sendkumaranil/SpringMVCFramework/blob/master/ConcurrentHashMap.png)
