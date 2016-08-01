@@ -12,3 +12,10 @@ Hierarchy of ConcurrentHashMap in java:<br>
                 java.lang.Object <br>
             +java.util.AbstractMap <br>
             +java.util.concurrent.ConcurrentHashMap
+<br>
+Constructs a new ConcurrentHashMap, Its initial capacity is 16. And load factor is 0.75 (We’ll
+discuss it later in post) <br>
+
+        Map<Integer,String> concurrentHashMap=new ConcurrentHashMap<Integer,String>();
+Defining ConcurrentHashMap<Integer,String> means key can of Integer type and value can be<br>
+String type only, using any other type will cause compilation error.
