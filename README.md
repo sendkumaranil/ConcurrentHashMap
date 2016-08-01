@@ -75,10 +75,10 @@ What do putIfAbsent method do:<br>
 If map does not contain specified key, put specified key‐value pair in map and return null in java.<br>
 If map already contains specified key, return value corresponding to specified key.<br>
 
-      putIfAbsent method is equivalent to writing following code in java :<br>
-      synchronized (map){
-      if (!map.containsKey(key))
-      return map.put(key, value);
-      else
-      return map.get(key);
-      }
+    putIfAbsent method is equivalent to writing following code in java :
+    synchronized (map){
+    if (!map.containsKey(key))
+    return map.put(key, value);
+    else
+    return map.get(key);
+    }
