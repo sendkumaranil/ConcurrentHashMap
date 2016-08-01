@@ -65,3 +65,20 @@ Both the kays lies in different segments, hence both operations can be performed
 <b>certain segments and new keypair have to be put/remove in same segment ?</b><br>
 <b>Answer :</b> When updations are in process thread locks the segment and it does not allow any other
 thread to perform updations (put/remove) in same segment until lock is not released on segment.
+
+<br><br>
+<b>ConcurrentHashMap putIfAbsent method in java:</b><br>
+Definition of putIfAbsent method in java <br>
+    <b>public V putIfAbsent(K key, V value)</b>
+<br>
+What do putIfAbsent method do:<br>
+If map does not contain specified key, put specified key‐value pair in map and return null in java.<br>
+If map already contains specified key, return value corresponding to specified key.<br>
+
+      putIfAbsent method is equivalent to writing following code in java :<br>
+      synchronized (map){
+      if (!map.containsKey(key))
+      return map.put(key, value);
+      else
+      return map.get(key);
+      }
