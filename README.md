@@ -1,5 +1,5 @@
 # ConcurrentHashMap
-How does concurrent hash map works internally?
+<b>How does concurrent hash map works internally?</b>
 
 -----------------------------------------------------------------
 <ul><li>java.util.ConcurrentHashMap is implementation of the java.util.Map interface in java.</li>
