@@ -49,4 +49,7 @@ before locking (hence <b>map.get(33) will return 15</b>)
 <br><br>
 <b>ConcurrentHashMap Question 3 : What will happen map.put(25,12) is called and some other</b><br>
 <b>thread concurrently calls map.put(33,24)?</b><br>
-<b>Answer :</b> When <b>map.put(25,12)</b> is called <b>segment 2</b> will be locked,
+<b>Answer :</b> When <b>map.put(25,12)</b> is called <b>segment 2</b> will be locked,<br>
+<b>key=33 also lies in segment 2</b>, When thread locks one segment for updation it does not allow any
+other thread to perform updations in same segment until lock is not released on segment.
+hence <b>map.put(33,24)</b> will have to wait for <b>map.put(25,12)</b> operation to release lock on segment
