@@ -82,3 +82,6 @@ If map already contains specified key, return value corresponding to specified k
     else
     return map.get(key);
     }
+
+
+<h4>Why concurrentHashMap does not allowed null as value or null as key?<h4>
