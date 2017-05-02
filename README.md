@@ -101,7 +101,7 @@ Reasoning :
 		6.          V v = e.value;
 		7.            if (v != null)
 		8.              return v;
-		9.          return readValueUnderLock(e); // recheck
+		9.          return readValueUnderLock(e); // recheck //takes lock if the value is null
 		10.       }
 		11.       e = e.next;
 		12.     }
@@ -138,7 +138,7 @@ Put method :
 		18.       } else {
 		19.         oldValue = null;
 		20.         ++modCount;
-		21.         tab[index] = new HashEntry(key, hash, first, value);
+		21.         tab[index] = new HashEntry(key, hash, first, value); // New value for HashEntry
 		22.         count = c; // write-volatile
 		23.       }
 		24.     return oldValue;
