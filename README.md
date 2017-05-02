@@ -149,3 +149,27 @@ Put method :
 
 This extra check in Line 9 of get method is very costly (as we already see it in the test results above) and is avoided if a not null value of HashEntry is encountered. 
 In case the null values are allowed this would require to have this lock acquired each time a null value is accessed, hence making the ConcurrentHashMap slower.
+
+<b>Not allowing null key:</b>
+
+The reason behind this implementation is due to ambiguity nature of the ConcurrentMap (ConcurrentHashMap) 
+when it comes to threading environment. 
+The main reason is that if map.get(key) returns null, we can't detect whether the key explicitly maps to null vs the key isn't mapped. 
+In ConcurrentHashMap, It might be possible that key 'K' might be deleted in between the get(k) and containsKey(k) calls.
+
+For example in below code of ConcurrentHashMap
+
+		Line 1: if (concurrentHashMap.containsKey(k)) {     
+		Line 2:      return concurrentHashMap.get(k);  
+		Line 3: } else {
+		Line 4:      throw new KeyNotPresentException();
+		Line 5: }
+
+The above example i am  explaining with two thread(1 & 2). 
+In Line 2, after checking thread 1 with the key "K" in concurrentHashMap(Line 1 - contains some value for the key "K"),  
+it will returns null (if thread 2 removed the key 'K' from concurrentHashMap). 
+Instead of throwing KeyNotPresentException , it actually returns null.
+
+The above scenario will not happen in case of non-concurrent map (HashMap), 
+because there is no Concurrent access. 
+So null key are allowed in HashMap by eliminating the ambiguity.
