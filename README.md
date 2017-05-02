@@ -111,7 +111,7 @@ Reasoning :
 
 		Now if ConcurrentHashMap does not allows null values then how can the HashEntry have a null value 
 		(value is marked volatile in HashEntry).Consider a scenario while a thread may be trying to put a new value on the HashEntry 
-		(line 22 in put method) in the put method of the ConcurrentHashMap.The HashEntry object is created but not yet initialized, 
+		(line 21 in put method) in the put method of the ConcurrentHashMap.The HashEntry object is created but not yet initialized, 
 		so that value attribute in HashEntry does not reflects its actual value, but instead reflects null. 
 		At this point a reader gets the HashEntry and reads a null for attribute value in HashEntry, 
 		thus having a need to recheck with a lock (line 9. get method.).
