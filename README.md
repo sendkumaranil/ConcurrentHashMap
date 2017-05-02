@@ -85,3 +85,67 @@ If map already contains specified key, return value corresponding to specified k
 
 
 <h4>Why concurrentHashMap does not allowed null as value or null as key?<h4>
+
+<b>Why ConcurrentHashMap does not allow null value?</b>
+
+Reasoning :
+
+		The method get in Segment implementation of a ConcurrentHashMap takes a lock on the segment itself, if the value of a HashEntry turns out to be null. 
+		This is illustrated in get method:
+
+		1.  V get(Object key, int hash) {
+		2.    if (count != 0) { // read-volatile
+		3.      HashEntry e = getFirst(hash);
+		4.      while (e != null) {
+		5.        if (e.hash == hash && key.equals(e.key)) {
+		6.          V v = e.value;
+		7.            if (v != null)
+		8.              return v;
+		9.          return readValueUnderLock(e); // recheck
+		10.       }
+		11.       e = e.next;
+		12.     }
+		13.   }
+		14.   return null;
+		15. }
+
+		Now if ConcurrentHashMap does not allows null values then how can the HashEntry have a null value 
+		(value is marked volatile in HashEntry).Consider a scenario while a thread may be trying to put a new value on the HashEntry 
+		(line 22 in put method) in the put method of the ConcurrentHashMap.The HashEntry object is created but not yet initialized, 
+		so that value attribute in HashEntry does not reflects its actual value, but instead reflects null. 
+		At this point a reader gets the HashEntry and reads a null for attribute value in HashEntry, 
+		thus having a need to recheck with a lock (line 9. get method.).
+
+Put method :
+
+		1.  V put(K key, int hash, V value, boolean onlyIfAbsent) {
+		2.    lock();
+		3.    try {
+		4.      int c = count;
+		5.      if (c++ > threshold) // ensure capacity
+		6.        rehash();
+		7.      HashEntry[] tab = table;
+		8.      int index = hash & (tab.length - 1);
+		9.      HashEntry first = tab[index];
+		10.     HashEntry e = first;
+		11.     while (e != null && (e.hash != hash || !key.equals(e.key)))
+		12.       e = e.next;
+		13.     V oldValue;
+		14.     if (e != null) {
+		15.       oldValue = e.value;
+		16.       if (!onlyIfAbsent)
+		17.         e.value = value;
+		18.       } else {
+		19.         oldValue = null;
+		20.         ++modCount;
+		21.         tab[index] = new HashEntry(key, hash, first, value);
+		22.         count = c; // write-volatile
+		23.       }
+		24.     return oldValue;
+		25.   } finally {
+		26.   unlock();
+		27. }
+		28.  }
+
+This extra check in Line 9 of get method is very costly (as we already see it in the test results above) and is avoided if a not null value of HashEntry is encountered. 
+In case the null values are allowed this would require to have this lock acquired each time a null value is accessed, hence making the ConcurrentHashMap slower.
